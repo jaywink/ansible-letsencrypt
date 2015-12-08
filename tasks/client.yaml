@@ -1,0 +1,19 @@
+---
+- name: Operating system dependencies
+  apt: name={{ item }} state=present
+  with_items:
+    - build-essential
+    - libssl-dev
+    - libffi-dev
+    - python-dev
+- name: Python cryptography module
+  pip: name=cryptography
+- name: Letsencrypt Python client
+  git: dest=/opt/letsencrypt clone=yes repo=https://github.com/letsencrypt/letsencrypt force=yes
+- name: Check if libaugeas0 is installed
+  shell: dpkg -l libaugeas0
+  register: dpkg_libaugeas
+  ignore_errors: True
+- name: Execute letsencrypt-auto to bootstrap dependencies
+  shell: chdir=/opt/letsencrypt ./letsencrypt-auto --help
+  when: dpkg_libaugeas.rc == 1 or dpkg_libaugeas.stdout.find("ii") == -1

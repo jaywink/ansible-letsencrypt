@@ -1,2 +1,2 @@
 ---
-# tasks file for letsencrypt
+- include: client.yaml
