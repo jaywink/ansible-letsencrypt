@@ -1,0 +1,13 @@
+---
+- name: Stop Apache
+  service: name=apache2 state=stopped
+- name: Obtain or renew cert for domain
+  shell: chdir=/opt/letsencrypt ./letsencrypt-auto certonly -m {{ letsencrypt_email }} -d {{ letsencrypt_domain }} --agree-tos --apache
+  ignore_errors: yes  # Otherwise we end up with dead Apache2 on failure
+  register: letsencrypt_result
+- name: Start Apache
+  service: name=apache2 state=started
+- name: Stop if letsencrypt failed
+  # We've got Apache2 back up - now abort if letsencrypt failed
+  command: /bin/false
+  when: "letsencrypt_result.rc != 0"

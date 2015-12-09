@@ -1,2 +1,5 @@
 ---
-# defaults file for letsencrypt
+# This is the certificate admins email - make sure to set it to yours!
+letsencrypt_email: yourmail@example.com
+# The domain we're requesting/renewing for
+letsencrypt_domain: example.com
