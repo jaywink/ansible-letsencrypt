@@ -6,6 +6,13 @@
     - libssl-dev
     - libffi-dev
     - python-dev
+    - git
+    - python-pip
+    - python-virtualenv
+    - dialog
+    - libaugeas0
+    - ca-certificates
+    - apache2
 - name: Python cryptography module
   pip: name=cryptography
 - name: Letsencrypt Python client
