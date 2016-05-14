@@ -6,7 +6,7 @@ Stability: alpha.
 
 ### What does it do?
 
-This role will pull in the official [LetsEncrypt client](https://github.com/letsencrypt/letsencrypt), install it and issue or renew a certificate with your chosen domain.
+This role will pull in the official [Certbot client](https://github.com/certbot/certbot), install it and issue or renew a certificate with your chosen domain.
 
 Currently the role is of limited functionality as follows:
 * Tested on Ubuntu 14.04
@@ -18,8 +18,8 @@ PR's are welcome to include more functionality.
 
 #### More detail
 
-* The client will be installed in `/opt/letsencrypt` as root
-* Each run will pull in the latest LetsEncrypt client code
+* The client will be installed in `/opt/certbot` as root
+* Each run will pull in the latest Certbot client code
 * The role will stop Apache2 before requesting a cert
 * `certonly` mode is used, which means no automatic web server installation
 * After cert issuing, you can find it in `/etc/letsencrypt/live/<domainname>`
@@ -33,6 +33,7 @@ PR's are welcome to include more functionality.
 
 * Note! If this role fails in the cert request part, you will have a stopped Apache2!
 * If the cert has been requested before, this role will automatically try to renew it, if possible.
+* A `www.` subdomain will automatically be requested along with the certificate.
 
 ### Requirements
 

@@ -16,4 +16,4 @@
 - name: Python cryptography module
   pip: name=cryptography
 - name: Letsencrypt Python client
-  git: dest=/opt/letsencrypt clone=yes repo=https://github.com/letsencrypt/letsencrypt force=yes
+  git: dest=/opt/certbot clone=yes repo=https://github.com/certbot/certbot force=yes
