@@ -2,6 +2,6 @@
 - name: Stop Apache2
   service: name=apache2 state=stopped
 - name: Obtain or renew cert for domain
-  shell: executable=/bin/bash cd /opt/letsencrypt && ./letsencrypt-auto certonly -m {{ letsencrypt_email }} -d {{ letsencrypt_domain }} --agree-tos --renew-by-default --standalone -q
+  shell: executable=/bin/bash cd /opt/letsencrypt && ./letsencrypt-auto certonly -m {{ letsencrypt_email }} --domains {{ letsencrypt_domain }},www.{{ letsencrypt_domain }} --agree-tos --renew-by-default --standalone --expand
 - name: Start Apache2
   service: name=apache2 state=started
