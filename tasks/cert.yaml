@@ -1,17 +1,23 @@
 ---
-- name: Stop Apache2
-  service: name=apache2 state=stopped
+
+- name: Stopping Services
+  service: name="{{item}}" state=stopped
+  with_items: "{{ letsencrypt_pause_services }}"
+
 - name: Obtain or renew cert for domain (with www)
   shell: ./certbot-auto certonly -m {{ letsencrypt_email }} --domains {{ letsencrypt_domain }},www.{{ letsencrypt_domain }} --agree-tos --renew-by-default --standalone --expand
   args:
     chdir: /opt/certbot
     executable: /bin/bash
   when: letsencrypt_request_www
+
 - name: Obtain or renew cert for domain (without www)
   shell: ./certbot-auto certonly -m {{ letsencrypt_email }} --domains {{ letsencrypt_domain }} --agree-tos --renew-by-default --standalone --expand
   args:
     chdir: /opt/certbot
     executable: /bin/bash
   when: not letsencrypt_request_www
-- name: Start Apache2
-  service: name=apache2 state=started
+
+- name: Starting Services
+  service: name="{{item}}" state=started
+  with_items: "{{ letsencrypt_pause_services }}"
