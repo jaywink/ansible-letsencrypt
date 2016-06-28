@@ -3,3 +3,5 @@
 letsencrypt_email: yourmail@example.com
 # The domain we're requesting/renewing for
 letsencrypt_domain: example.com
+# Always request www. also?
+letsencrypt_request_www: true

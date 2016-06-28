@@ -34,6 +34,7 @@ PR's are welcome to include more functionality.
 * Note! If this role fails in the cert request part, you will have a stopped Apache2!
 * If the cert has been requested before, this role will automatically try to renew it, if possible.
 * A `www.` subdomain will automatically be requested along with the certificate.
+    * To disable this behaviour, set `letsencrypt_request_www` to `false` in your vars.
 
 ### Requirements
 
@@ -47,6 +48,7 @@ Tested with the following:
 
 * `letsencrypt_email` - your email as certificate owner
 * `letsencrypt_domain` - domain the certificate is for
+* `letsencrypt_request_www` - request `www.` automatically (default `true`)
 
 ### Example Playbook
 
