@@ -5,3 +5,5 @@ letsencrypt_email: yourmail@example.com
 letsencrypt_domain: example.com
 # Always request www. also?
 letsencrypt_request_www: true
+# Version/Release tag or branch name of certbot to use
+letsencrypt_certbot_version: master
