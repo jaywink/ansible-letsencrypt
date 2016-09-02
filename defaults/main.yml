@@ -7,3 +7,6 @@ letsencrypt_domain: example.com
 letsencrypt_request_www: true
 # Version/Release tag or branch name of certbot to use
 letsencrypt_certbot_version: master
+# Pause these services while updating the certificate
+letsencrypt_pause_services:
+  - apache2
