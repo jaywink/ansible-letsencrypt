@@ -2,7 +2,7 @@
 
 A role to automate LetsEncrypt certificates.
 
-Stability: alpha.
+Stability: beta.
 
 ### What does it do?
 
@@ -19,8 +19,8 @@ PR's are welcome to include more functionality.
 #### More detail
 
 * The client will be installed in `/opt/certbot` as root
-* Each run will pull in the latest Certbot client code
-* The role will stop Apache2 before requesting a cert
+* Each run will pull in the latest Certbot client code. You can set a specific Certbot version using the variable `letsencrypt_certbot_version`.
+* The role will by default stop Apache2 before requesting a cert and then restart it after done. The list of services to be stopped and started can be configured using the variable `letsencrypt_pause_services`.
 * `certonly` mode is used, which means no automatic web server installation
 * After cert issuing, you can find it in `/etc/letsencrypt/live/<domainname>`
    * Tip, use this in your Apache2 config, for example, in your main role. Just make sure not to try and start Apache2 with the virtualhost active without the LetsEncrypt role running first!
@@ -31,7 +31,7 @@ PR's are welcome to include more functionality.
        SSLCertificateChainFile /etc/letsencrypt/live/{{ hostname }}/chain.pem
        ```
 
-* Note! If this role fails in the cert request part, you will have a stopped Apache2!
+* Note! If this role fails in the cert request part, you might have stopped services - take care!
 * If the cert has been requested before, this role will automatically try to renew it, if possible.
 * A `www.` subdomain will automatically be requested along with the certificate.
     * To disable this behaviour, set `letsencrypt_request_www` to `false` in your vars.
@@ -46,9 +46,11 @@ Tested with the following:
 
 ### Role Variables
 
-* `letsencrypt_email` - your email as certificate owner
-* `letsencrypt_domain` - domain the certificate is for
-* `letsencrypt_request_www` - request `www.` automatically (default `true`)
+* `letsencrypt_email` - Your email as certificate owner.
+* `letsencrypt_domain` - Domain the certificate is for.
+* `letsencrypt_request_www` - Request `www.` automatically (default `true`).
+* `letsencrypt_certbot_version` - Set specific Certbot version, for example a git tag or branch.
+* `letsencrypt_pause_services` - List of services to stop/start while calling Certbot. Defaults to `apache2`.
 
 ### Example Playbook
 
@@ -70,3 +72,5 @@ MIT
 ### Author Information
 
 Jason Robinson - mail@jasonrobinson.me - https://iliketoast.net/u/jaywink - https://twitter.com/jaywink
+
+See CONTRIBUTORS for wonderful people who have expanded the role <3

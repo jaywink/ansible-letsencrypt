@@ -1,3 +1,12 @@
+## [unreleased]
+
+### Added
+* Allow configuring the certbot version with a new variable `letsencrypt_certbot_version`. This defaults to master. Thanks @gronke for this patch!
+* Allow configuring what services are stopped when requesting a cert via new variable `letsencrypt_pause_services`. This is a list of items which by default includes `apache2`. You can set this variable empty to skip pausing services. Thanks @gronke for this patch!
+
+### Changed
+* Stability changed to "beta" to be less scary :)
+
 ## [0.3.0] - 2016-06-29
 
 ### Added
