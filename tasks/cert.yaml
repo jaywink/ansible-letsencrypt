@@ -2,10 +2,16 @@
 - name: Stop Apache2
   service: name=apache2 state=stopped
 - name: Obtain or renew cert for domain (with www)
-  shell: executable=/bin/bash cd /opt/certbot && ./certbot-auto certonly -m {{ letsencrypt_email }} --domains {{ letsencrypt_domain }},www.{{ letsencrypt_domain }} --agree-tos --renew-by-default --standalone --expand
+  shell: ./certbot-auto certonly -m {{ letsencrypt_email }} --domains {{ letsencrypt_domain }},www.{{ letsencrypt_domain }} --agree-tos --renew-by-default --standalone --expand
+  args:
+    chdir: /opt/certbot
+    executable: /bin/bash
   when: letsencrypt_request_www
 - name: Obtain or renew cert for domain (without www)
-  shell: executable=/bin/bash cd /opt/certbot && ./certbot-auto certonly -m {{ letsencrypt_email }} --domains {{ letsencrypt_domain }} --agree-tos --renew-by-default --standalone --expand
+  shell: ./certbot-auto certonly -m {{ letsencrypt_email }} --domains {{ letsencrypt_domain }} --agree-tos --renew-by-default --standalone --expand
+  args:
+    chdir: /opt/certbot
+    executable: /bin/bash
   when: not letsencrypt_request_www
 - name: Start Apache2
   service: name=apache2 state=started
