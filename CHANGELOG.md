@@ -1,4 +1,4 @@
-## [unreleased]
+## [0.4.0] - 2016-09-03
 
 ### Added
 * Allow configuring the certbot version with a new variable `letsencrypt_certbot_version`. This defaults to master. Thanks @gronke for this patch!
