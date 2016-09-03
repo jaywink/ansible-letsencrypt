@@ -3,6 +3,8 @@
 ### Added
 * Allow configuring the certbot version with a new variable `letsencrypt_certbot_version`. This defaults to master. Thanks @gronke for this patch!
 * Allow configuring what services are stopped when requesting a cert via new variable `letsencrypt_pause_services`. This is a list of items which by default includes `apache2`. You can set this variable empty to skip pausing services. Thanks @gronke for this patch!
+* Allow configuring the `--renew-by-default` command line flag to Certbot. By default this is enabled, switch it off by setting `letsencrypt_force_renew` to `false`. Thanks @gronke.
+* Additional Certbot command line args can now be passed in using the list variable `letsencrypt_certbot_args`. Thanks @gronke for the addition.
 
 ### Changed
 * Stability changed to "beta" to be less scary :)
