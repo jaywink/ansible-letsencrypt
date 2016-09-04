@@ -15,6 +15,11 @@
   args:
     chdir: /opt/certbot
     executable: /bin/bash
+  ignore_errors: true
+  register: certbot_command
+
+- fail: msg="{{certbot_command.stderr}}"
+  when: (certbot_command.failed == true) and (certbot_command.stderr != 'User chose to cancel the operation and may reinvoke the client.')
 
 - name: Starting Services
   service: name="{{item}}" state=started
