@@ -1,3 +1,8 @@
+## [0.4.1] - 2016-09-04
+
+### Fixed
+* There was an error setting `letsencrypt_certbot_args` in 0.4.0. Thanks @gronke for a fast fix.
+
 ## [0.4.0] - 2016-09-03
 
 ### Added
