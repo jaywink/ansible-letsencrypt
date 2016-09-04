@@ -1,3 +1,6 @@
+[![Ansible Galaxy](https://img.shields.io/badge/ansible--galaxy-letsencrypt-blue.svg?style=flat-square)](https://galaxy.ansible.com/jaywink/letsencrypt)
+[![License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](https://tldrlegal.com/license/mit-license)
+
 ## Ansible LetsEncrypt
 
 A role to automate LetsEncrypt certificates.
