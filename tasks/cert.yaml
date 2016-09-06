@@ -25,7 +25,7 @@
 - set_fact: _signing_skipped='{{ (letsencrypt_force_renew != true) and (certbot_skip_renewal_message in _certbot_command.stdout) }}'
 
 - debug: msg="{{ (_certbot_command.stdout_lines if _certbot_command.stdout_lines is defined else _certbot_command.stderr_lines) | pprint }}"
-  when: (_signing_successful == false) and (_signing_skipped == false)
+  when: letsencrypt_certbot_verbose or ((_signing_successful == false) and (_signing_skipped == false))
 
 - name: Starting Services
   service: name="{{item}}" state=started
