@@ -3,6 +3,9 @@
 - set_fact: letsencrypt_certbot_args="{{letsencrypt_certbot_args + ['--renew-by-default']}}"
   when: letsencrypt_force_renew == true
 
+- set_fact: letsencrypt_certbot_args="{{letsencrypt_certbot_args + ['--keep-until-expiring']}}"
+  when: letsencrypt_force_renew != true
+
 - set_fact: letsencrypt_domain="{{letsencrypt_domain}},www.{{letsencrypt_domain}}"
   when: letsencrypt_request_www
 
