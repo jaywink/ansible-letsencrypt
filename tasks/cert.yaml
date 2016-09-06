@@ -12,6 +12,7 @@
 - name: Stopping Services
   service: name="{{item}}" state=stopped
   with_items: "{{ letsencrypt_pause_services }}"
+  ignore_errors: yes
 
 - name: Obtain or renew cert for domain
   shell: ./certbot-auto certonly --text -n -m {{ letsencrypt_email }} --domains {{ _letsencrypt_domains | default(letsencrypt_domain) }} --agree-tos --standalone --expand {{_letsencrypt_certbot_args | join(' ')}} 2>&1
