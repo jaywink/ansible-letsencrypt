@@ -1,2 +1,5 @@
 ---
 # vars file for letsencrypt
+
+certbot_skip_renewal_message: "Certificate not yet due for renewal; no action taken"
+certbot_success_message: "Congratulations!"
