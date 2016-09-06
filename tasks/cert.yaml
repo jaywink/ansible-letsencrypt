@@ -13,6 +13,7 @@
   service: name="{{item}}" state=stopped
   with_items: "{{ letsencrypt_pause_services }}"
   ignore_errors: yes
+  register: _services_stopped
 
 - name: Obtain or renew cert for domain
   shell: ./certbot-auto certonly --text -n -m {{ letsencrypt_email }} --domains {{ _letsencrypt_domains | default(letsencrypt_domain) }} --agree-tos --standalone --expand {{_letsencrypt_certbot_args | join(' ')}} 2>&1
@@ -28,9 +29,10 @@
 - debug: msg="{{ (_certbot_command.stdout_lines if _certbot_command.stdout_lines is defined else _certbot_command.stderr_lines) | pprint }}"
   when: letsencrypt_certbot_verbose or ((_signing_successful == false) and (_signing_skipped == false))
 
-- name: Starting Services
-  service: name="{{item}}" state=started
-  with_items: "{{ letsencrypt_pause_services }}"
+- name: Starting paused Services
+  service: name="{{item.item}}" state=started
+  when: (item.failed != true) and (item.state == "stopped")
+  with_items: "{{ _services_stopped.results }}"
 
 - fail: msg="Error signing the certificate"
   when: (_signing_successful == false) and (_signing_skipped == false)
