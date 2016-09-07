@@ -11,17 +11,17 @@ Stability: beta.
 
 This role will pull in the official [Certbot client](https://github.com/certbot/certbot), install it and issue or renew a certificate with your chosen domain.
 
-Currently the role is of limited functionality as follows:
+Functionality as follows:
 * Tested on Ubuntu 14.04 and Debian 8
 * One domain per role include only
-* No automatic installation, certonly mode only
+* Runs in `certonly` mode only
 
 PR's are welcome to include more functionality.
 
 #### More detail
 
 * The client will be installed in `/opt/certbot` as root
-* Each run will pull in the latest Certbot client code. You can set a specific Certbot version using the variable `letsencrypt_certbot_version`.
+* Each run will pull in the Certbot client code from a proven release version. You can set a specific Certbot version using the variable `letsencrypt_certbot_version`.
 * A list of services to be stopped before and (re-)started after obtaining a new certificate can be configured using the variable `letsencrypt_pause_services`.
 * `certonly` mode is used, which means no automatic web server installation
 * After cert issuing, you can find it in `/etc/letsencrypt/live/<domainname>`
