@@ -5,6 +5,7 @@
 
 ### Changed
 * Certbot now runs with the `--non-interactive` flag, which should protect from Ansible hanging on unexpected prompts. **Note! This flag was added in Certbot 0.6.0** which is the lowest version this role can thus support.
+* Default version of Certbot installed is now v0.8.1, the latest release as of now. Master branch can have unexpected breakages. Due to this, the cli flag `--no-self-upgrade` was also added to stop Certbot from automatically updating itself.
 
 ## [0.4.1] - 2016-09-04
 
