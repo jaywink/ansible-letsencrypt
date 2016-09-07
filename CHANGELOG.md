@@ -1,5 +1,8 @@
 ## [unreleased]
 
+### Backwards incompatible changes
+* Apache2 is no longer a dependency of this role and will not be installed. Thanks to @gronke for this patch. This also means `letsencrypt_pause_services` is an empty list by default. Make sure to add your webserver there so that it will be paused. A missing not installed service will not stop the role from executing so you can safely run this role before your main application role.
+
 ### Fixed
 * Settings `letsencrypt_force_renew` to `false` caused Certbot to fail in some situations. Now this is fixed by passing Certbot the flag `--keep-until-expiring`, in the case that forced renewal is not desired. If the certificate is not due for renewal, nothing will be done by Certbot but no error will be raised either.
 

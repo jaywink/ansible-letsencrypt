@@ -85,6 +85,8 @@ MIT
 
 ### Author Information
 
-Jason Robinson - mail@jasonrobinson.me - https://iliketoast.net/u/jaywink - https://twitter.com/jaywink
+Jason Robinson (@jaywink) - mail@jasonrobinson.me - https://iliketoast.net/u/jaywink - https://twitter.com/jaywink
 
-See CONTRIBUTORS for wonderful people who have expanded the role <3
+Special thanks to Stefan Grönke (@gronke) for his work on expanding this role.
+
+See CONTRIBUTORS for a full list of contributors.
