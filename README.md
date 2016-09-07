@@ -12,8 +12,7 @@ Stability: beta.
 This role will pull in the official [Certbot client](https://github.com/certbot/certbot), install it and issue or renew a certificate with your chosen domain.
 
 Currently the role is of limited functionality as follows:
-* Tested on Ubuntu 14.04
-* Using Apache2 to do validation
+* Tested on Ubuntu 14.04 and Debian 8
 * One domain per role include only
 * No automatic installation, certonly mode only
 
@@ -23,7 +22,7 @@ PR's are welcome to include more functionality.
 
 * The client will be installed in `/opt/certbot` as root
 * Each run will pull in the latest Certbot client code. You can set a specific Certbot version using the variable `letsencrypt_certbot_version`.
-* The role will by default stop Apache2 before requesting a cert and then restart it after done. The list of services to be stopped and started can be configured using the variable `letsencrypt_pause_services`.
+* A list of services to be stopped before and (re-)started after obtaining a new certificate can be configured using the variable `letsencrypt_pause_services`.
 * `certonly` mode is used, which means no automatic web server installation
 * After cert issuing, you can find it in `/etc/letsencrypt/live/<domainname>`
    * Tip, use this in your Apache2 config, for example, in your main role. Just make sure not to try and start Apache2 with the virtualhost active without the LetsEncrypt role running first!
@@ -43,8 +42,8 @@ PR's are welcome to include more functionality.
 
 Tested with the following:
 
-* Ubuntu 14.04
-* Apache2
+* Ubuntu 14.04 and Debian 8
+* Apache2 and Nginx
 * Ansible 1.9 / 2.x
 
 ### Role Variables
@@ -60,7 +59,7 @@ Tested with the following:
 * `letsencrypt_certbot_verbose` - Make Certbot output to console (default `true`).
 * `letsencrypt_certbot_version` - Set specific Certbot version, for example a git tag or branch. Note that the lowest version of Certbot we support is 0.6.0.
 * `letsencrypt_force_renew` - Whether to attempt renewal always, default to `true`.
-* `letsencrypt_pause_services` - List of services to stop/start while calling Certbot. Defaults to `apache2`.
+* `letsencrypt_pause_services` - List of services to stop/start while calling Certbot.
 * `letsencrypt_request_www` - Request `www.` automatically (default `true`).
 
 ### Example Playbook
@@ -74,7 +73,11 @@ This role should become root on the target host.
       become: yes
       become_user: root
       roles:
-        - { role: ansible-letsencrypt, letsencrypt_email: email@example.com, letsencrypt_domain: example.com }
+        - role: ansible-letsencrypt
+          letsencrypt_email: email@example.com
+          letsencrypt_domain: example.com
+          letsencrypt_pause_services:
+            - apache2
 
 ### License
 
