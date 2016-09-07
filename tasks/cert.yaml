@@ -14,7 +14,7 @@
   with_items: "{{ letsencrypt_pause_services }}"
 
 - name: Obtain or renew cert for domain
-  shell: ./certbot-auto certonly --text -m {{ letsencrypt_email }} --domains {{ _letsencrypt_domains | default(letsencrypt_domain) }} --agree-tos --standalone --expand {{_letsencrypt_certbot_args | join(' ')}} 2>&1
+  shell: ./certbot-auto certonly --text -n -m {{ letsencrypt_email }} --domains {{ _letsencrypt_domains | default(letsencrypt_domain) }} --agree-tos --standalone --expand {{_letsencrypt_certbot_args | join(' ')}} 2>&1
   args:
     chdir: /opt/certbot
     executable: /bin/bash
