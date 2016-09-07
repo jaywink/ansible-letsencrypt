@@ -20,6 +20,7 @@
     dest: /opt/certbot
     clone: yes
     update: yes
+    depth: 1
     repo: https://github.com/certbot/certbot
     force: yes
     version: '{{letsencrypt_certbot_version}}'
