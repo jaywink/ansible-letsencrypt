@@ -6,7 +6,7 @@ letsencrypt_domain: example.com
 # Always request www. also?
 letsencrypt_request_www: true
 # Version/Release tag or branch name of certbot to use
-letsencrypt_certbot_version: master
+letsencrypt_certbot_version: v0.8.1
 # Print Certbot output
 letsencrypt_certbot_verbose: true
 # Pause these services while updating the certificate
