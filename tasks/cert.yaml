@@ -31,7 +31,7 @@
 
 - name: Starting paused Services
   service: name="{{item.item}}" state=started
-  when: (item.failed != true) and (item.state == "stopped")
+  when: (item.state is defined and item.state == "stopped")
   with_items: "{{ _services_stopped.results }}"
 
 - fail: msg="Error signing the certificate"
