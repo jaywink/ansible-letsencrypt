@@ -1,5 +1,8 @@
 ## [unreleased]
 
+### Fixed
+* Settings `letsencrypt_force_renew` to `false` caused Certbot to fail in some situations. Now this is fixed by passing Certbot the flag `--keep-until-expiring`, in the case that forced renewal is not desired. If the certificate is not due for renewal, nothing will be done by Certbot but no error will be raised either.
+
 ### Changed
 * Certbot now runs with the `--non-interactive` flag, which should protect from Ansible hanging on unexpected prompts. **Note! This flag was added in Certbot 0.6.0** which is the lowest version this role can thus support.
 

@@ -35,7 +35,7 @@ PR's are welcome to include more functionality.
        ```
 
 * Note! If this role fails in the cert request part, you might have stopped services - take care!
-* If the cert has been requested before, this role will automatically try to renew it, if possible. Disable this functionality by setting `letsencrypt_force_renew` to `false`.
+* If the cert has been requested before, this role will automatically try to renew it, if possible. Disable this functionality by setting `letsencrypt_force_renew` to `false`. No renewal will be attempted in this case if cert is not due for renewal.
 * A `www.` subdomain will automatically be requested along with the certificate.
     * To disable this behaviour, set `letsencrypt_request_www` to `false` in your vars.
 
@@ -57,6 +57,7 @@ Tested with the following:
 #### Optional
 
 * `letsencrypt_certbot_args` - Additional command line args to Certbot.
+* `letsencrypt_certbot_verbose` - Make Certbot output to console (default `true`).
 * `letsencrypt_certbot_version` - Set specific Certbot version, for example a git tag or branch. Note that the lowest version of Certbot we support is 0.6.0.
 * `letsencrypt_force_renew` - Whether to attempt renewal always, default to `true`.
 * `letsencrypt_pause_services` - List of services to stop/start while calling Certbot. Defaults to `apache2`.
