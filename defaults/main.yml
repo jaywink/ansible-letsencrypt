@@ -13,5 +13,16 @@ letsencrypt_certbot_verbose: true
 letsencrypt_pause_services: []
 # Force Certificate Reneval
 letsencrypt_force_renew: true
-# Additional certbot arguments
+# certbot custom arguments -- see: https://certbot.eff.org/docs/using.html
 letsencrypt_certbot_args: []
+# default arguments passed to certbot
+letsencrypt_certbot_default_args:
+  - certonly
+  - --standalone
+  - --expand
+  - --text
+  - -n
+  - --no-self-upgrade
+  - --domains '{{ _letsencrypt_domains | default(letsencrypt_domain) }}'
+  - -m  '{{letsencrypt_email}}'
+  - --agree-tos

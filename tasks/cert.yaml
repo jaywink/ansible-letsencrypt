@@ -1,11 +1,9 @@
 ---
-
-- set_fact: _letsencrypt_certbot_args="{{letsencrypt_certbot_args + ['--renew-by-default']}}"
-  when: letsencrypt_force_renew == true
-
-- set_fact: _letsencrypt_certbot_args="{{letsencrypt_certbot_args + ['--keep-until-expiring']}}"
-  when: letsencrypt_force_renew != true
-
+- set_fact: _letsencrypt_certbot_args="{{ letsencrypt_certbot_args + ['--renew-by-default'] }}"
+  when: letsencrypt_force_renew
+- set_fact: _letsencrypt_certbot_args="{{ letsencrypt_certbot_args + ['--keep-until-expiring'] }}"
+  when: not letsencrypt_force_renew
+- set_fact: _letsencrypt_certbot_combined_args="{{_letsencrypt_certbot_args + letsencrypt_certbot_default_args + letsencrypt_certbot_args}}"
 - set_fact: _letsencrypt_domains="{{letsencrypt_domain}},www.{{letsencrypt_domain}}"
   when: letsencrypt_request_www
 
@@ -16,7 +14,7 @@
   register: _services_stopped
 
 - name: Obtain or renew cert for domain
-  shell: ./certbot-auto certonly --text -n --no-self-upgrade -m {{ letsencrypt_email }} --domains {{ _letsencrypt_domains | default(letsencrypt_domain) }} --agree-tos --standalone --expand {{_letsencrypt_certbot_args | join(' ')}} 2>&1
+  shell: ./certbot-auto {{_letsencrypt_certbot_combined_args | join(' ')}} 2>&1
   args:
     chdir: /opt/certbot
     executable: /bin/bash
@@ -24,15 +22,13 @@
   register: _certbot_command
 
 - set_fact: _signing_successful='{{ certbot_success_message in _certbot_command.stdout }}'
-- set_fact: _signing_skipped='{{ (letsencrypt_force_renew != true) and (certbot_skip_renewal_message in _certbot_command.stdout) }}'
-
+- set_fact: _signing_skipped='{{ (certbot_skip_renewal_message in _certbot_command.stdout) and not letsencrypt_force_renew }}'
 - debug: msg="{{ (_certbot_command.stdout_lines if _certbot_command.stdout_lines is defined else _certbot_command.stderr_lines) | pprint }}"
-  when: letsencrypt_certbot_verbose or ((_signing_successful == false) and (_signing_skipped == false))
-
+  when: letsencrypt_certbot_verbose or ((not _signing_successful) and not _signing_skipped)
 - name: Starting paused Services
   service: name="{{item.item}}" state=started
   when: (item.state is defined and item.state == "stopped")
   with_items: "{{ _services_stopped.results }}"
 
 - fail: msg="Error signing the certificate"
-  when: (_signing_successful == false) and (_signing_skipped == false)
+  when: (not _signing_successful) and not _signing_skipped
