@@ -1,4 +1,4 @@
-## [unreleased]
+## [0.5.0] - 2016-10-10
 
 ### Backwards incompatible changes
 * Apache2 is no longer a dependency of this role and will not be installed. Thanks to @gronke for this patch. This also means `letsencrypt_pause_services` is an empty list by default. Make sure to add your webserver there so that it will be paused. A missing not installed service will not stop the role from executing so you can safely run this role before your main application role.
