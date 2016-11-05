@@ -1,3 +1,8 @@
+## [unreleased]
+
+### Fixed
+* Cloning Certbot from GitHub was using `depth: 1` for a quicker clone. This was causing problems in changing the version of Certbot later. Fixed by removing the `depth` argument. Thanks @brennen for reporting this issue.
+
 ## [0.5.0] - 2016-10-10
 
 ### Backwards incompatible changes
