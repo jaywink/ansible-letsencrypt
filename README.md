@@ -29,9 +29,9 @@ PR's are welcome to include more functionality.
    * Tip, use this in your Apache2 config, for example, in your main role. Just make sure not to try and start Apache2 with the virtualhost active without the LetsEncrypt role running first!
 
        ```
-       SSLCertificateFile /etc/letsencrypt/live/{{ hostname }}/cert.pem
-       SSLCertificateKeyFile /etc/letsencrypt/live/{{ hostname }}/privkey.pem
-       SSLCertificateChainFile /etc/letsencrypt/live/{{ hostname }}/chain.pem
+       SSLCertificateFile /etc/letsencrypt/live/{{ letsencrypt_domain }}/cert.pem
+       SSLCertificateKeyFile /etc/letsencrypt/live/{{ letsencrypt_domain }}/privkey.pem
+       SSLCertificateChainFile /etc/letsencrypt/live/{{ letsencrypt_domain }}/chain.pem
        ```
 
 * Note! If this role fails in the cert request part, you might have stopped services - take care!
