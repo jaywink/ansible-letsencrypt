@@ -24,5 +24,5 @@ letsencrypt_certbot_default_args:
   - -n
   - --no-self-upgrade
   - --domains '{{ _letsencrypt_domains | default(letsencrypt_domain) }}'
-  - -m  '{{letsencrypt_email}}'
+  - -m '{{letsencrypt_email}}'
   - --agree-tos
