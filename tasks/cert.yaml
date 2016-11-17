@@ -28,7 +28,7 @@
 - name: Starting paused Services
   service: name="{{item.item}}" state=started
   when: (item.state is defined and item.state == "stopped")
-  with_items: "{{ _services_stopped.results }}"
+  with_items: "{{ _services_stopped.results|default([]) }}"
 
 - fail: msg="Error signing the certificate"
   when: (not _signing_successful) and not _signing_skipped
