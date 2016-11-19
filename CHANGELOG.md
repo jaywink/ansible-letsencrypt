@@ -3,6 +3,9 @@
 ### Important!
 * Required Ansible version is now 2.x - see https://github.com/jaywink/ansible-letsencrypt/issues/20
 
+### Added
+- You can now specify all the parameters given to `certbot` by overriding the new variable `letsencrypt_certbot_default_args`. If you just want to add a parameter, use the old `letsencrypt_certbot_args` variable to add to the defaults already in place. Thanks for @robbyoconnor for this patch.
+
 ### Fixed
 * Cloning Certbot from GitHub was using `depth: 1` for a quicker clone. This was causing problems in changing the version of Certbot later. Fixed by removing the `depth` argument. Thanks @brennen for reporting this issue.
 
