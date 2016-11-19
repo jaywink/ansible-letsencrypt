@@ -1,4 +1,4 @@
-## [unreleased]
+## [0.6.0] - 2016-11-19
 
 ### Important!
 * Required Ansible version is now 2.x - see https://github.com/jaywink/ansible-letsencrypt/issues/20
