@@ -1,5 +1,8 @@
 ## [unreleased]
 
+### Important!
+* Required Ansible version is now 2.x - see https://github.com/jaywink/ansible-letsencrypt/issues/20
+
 ### Fixed
 * Cloning Certbot from GitHub was using `depth: 1` for a quicker clone. This was causing problems in changing the version of Certbot later. Fixed by removing the `depth` argument. Thanks @brennen for reporting this issue.
 

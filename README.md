@@ -7,6 +7,8 @@ A role to automate LetsEncrypt certificates.
 
 Stability: beta.
 
+Ansible version required: 2.x
+
 ### What does it do?
 
 This role will pull in the official [Certbot client](https://github.com/certbot/certbot), install it and issue or renew a certificate with your chosen domain.
@@ -45,7 +47,7 @@ Tested with the following:
 
 * Ubuntu 14.04 and Debian 8
 * Apache2 and Nginx
-* Ansible 1.9 / 2.x
+* Ansible 2.x
 
 ### Role Variables
 
