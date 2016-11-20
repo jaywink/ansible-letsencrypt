@@ -1,0 +1,18 @@
+---
+- debug: msg="{{ _letsencrypt_certbot_combined_args | pprint }}"
+
+- fail: msg="Expected args to certbot were not as expected"
+  when: letsencrypt_test_expected_args != _letsencrypt_certbot_combined_args
+
+# When testing, run certbot-auto with an invalid argument just to make it build the environment..
+- shell: ./certbot-auto --no-self-upgrade invalid-test-arg 2>&1
+  args:
+    chdir: /opt/certbot
+    executable: /bin/bash
+  ignore_errors: true
+  register: _certbot_test_command
+
+- set_fact: _certbot_test_successful='{{ certbot_test_success_message in _certbot_test_command.stdout }}'
+
+- fail: msg="Invalid test response from certbot-auto"
+  when: not _certbot_test_command

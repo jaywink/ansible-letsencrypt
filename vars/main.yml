@@ -3,3 +3,4 @@
 
 certbot_skip_renewal_message: "Certificate not yet due for renewal; no action taken"
 certbot_success_message: "Congratulations!"
+certbot_test_success_message: "letsencrypt: error: unrecognized arguments: invalid-test-arg"

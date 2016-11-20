@@ -1,3 +1,6 @@
 ---
 - include: client.yaml
 - include: cert.yaml
+
+- include: test.yaml
+  when: letsencrypt_test

@@ -1,0 +1,23 @@
+---
+- hosts: all
+
+  vars:
+    letsencrypt_email: user@example.com
+    letsencrypt_domain: example.com
+    letsencrypt_pause_services:
+      - apache2
+    letsencrypt_test: true
+    letsencrypt_test_expected_args:
+      - --renew-by-default
+      - certonly
+      - --standalone
+      - --expand
+      - --text
+      - -n
+      - --no-self-upgrade
+      - --domains 'example.com'
+      - -m 'user@example.com'
+      - --agree-tos
+
+  roles:
+    - role_under_test

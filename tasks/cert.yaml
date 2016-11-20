@@ -20,15 +20,19 @@
     executable: /bin/bash
   ignore_errors: true
   register: _certbot_command
+  when: not letsencrypt_test
 
 - set_fact: _signing_successful='{{ certbot_success_message in _certbot_command.stdout }}'
+  when: not letsencrypt_test
 - set_fact: _signing_skipped='{{ (certbot_skip_renewal_message in _certbot_command.stdout) and not letsencrypt_force_renew }}'
+  when: not letsencrypt_test
 - debug: msg="{{ (_certbot_command.stdout_lines if _certbot_command.stdout_lines is defined else _certbot_command.stderr_lines) | pprint }}"
-  when: letsencrypt_certbot_verbose or ((not _signing_successful) and not _signing_skipped)
+  when: not letsencrypt_test and (letsencrypt_certbot_verbose or ((not _signing_successful) and not _signing_skipped))
+
 - name: Starting paused Services
   service: name="{{item.item}}" state=started
   when: (item.state is defined and item.state == "stopped")
   with_items: "{{ _services_stopped.results|default([]) }}"
 
 - fail: msg="Error signing the certificate"
-  when: (not _signing_successful) and not _signing_skipped
+  when: not letsencrypt_test and not _signing_successful and not _signing_skipped
