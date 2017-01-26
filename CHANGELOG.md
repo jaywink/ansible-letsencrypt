@@ -1,3 +1,8 @@
+## [unreleased]
+
+### Fixed
+* Fix regression relating to requesting `www.` domains introduced after 0.6.0. The regression caused a `www.` domain not to be requested even if explicitly setting `letsencrypt_request_www` to `true`. Note that this functionality used to work after the release of 0.6.0 AFAIK, but was possibly broken by a behaviour change in Ansible 2.1.
+
 ## [0.6.0] - 2016-11-19
 
 ### Important!

@@ -23,10 +23,8 @@ letsencrypt_certbot_default_args:
   - --text
   - -n
   - --no-self-upgrade
-  - --domains '{{ _letsencrypt_domains | default(letsencrypt_domain) }}'
   - -m '{{letsencrypt_email}}'
   - --agree-tos
-
 
 # This is enabled when running tests - DO NOT TOUCH
 letsencrypt_test: false
