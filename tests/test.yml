@@ -15,9 +15,9 @@
       - --text
       - -n
       - --no-self-upgrade
-      - --domains 'example.com'
       - -m 'user@example.com'
       - --agree-tos
+      - --domains example.com,www.example.com
 
   roles:
     - role_under_test
