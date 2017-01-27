@@ -11,6 +11,7 @@
     executable: /bin/bash
   ignore_errors: true
   register: _certbot_test_command
+  changed_when: False
 
 - set_fact: _certbot_test_successful='{{ certbot_test_success_message in _certbot_test_command.stdout }}'
 

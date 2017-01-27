@@ -23,6 +23,12 @@ script:
   # Ansible syntax check.
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml --syntax-check'
 
+  # Fix pip - see https://bugs.launchpad.net/ubuntu/+source/python-pip/+bug/1658844
+  - 'docker exec "$(cat ${container_id})" apt-get update'
+  - 'docker exec "$(cat ${container_id})" apt-get install -y python-pip'
+  - 'docker exec "$(cat ${container_id})" python -m pip install -U pip'
+  - 'docker exec "$(cat ${container_id})" pip install -U pip setuptools'
+
   # Test role.
   - 'docker exec "$(cat ${container_id})" ansible-playbook /etc/ansible/roles/role_under_test/tests/test.yml'
 

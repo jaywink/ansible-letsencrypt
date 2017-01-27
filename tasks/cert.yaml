@@ -1,11 +1,17 @@
 ---
 - set_fact: _letsencrypt_certbot_args="{{ letsencrypt_certbot_args + ['--renew-by-default'] }}"
   when: letsencrypt_force_renew
+
 - set_fact: _letsencrypt_certbot_args="{{ letsencrypt_certbot_args + ['--keep-until-expiring'] }}"
   when: not letsencrypt_force_renew
-- set_fact: _letsencrypt_certbot_combined_args="{{_letsencrypt_certbot_args + letsencrypt_certbot_default_args + letsencrypt_certbot_args}}"
-- set_fact: _letsencrypt_domains="{{letsencrypt_domain}},www.{{letsencrypt_domain}}"
+
+- set_fact: _letsencrypt_domains="--domains {{letsencrypt_domain}},www.{{letsencrypt_domain}}"
   when: letsencrypt_request_www
+
+- set_fact: _letsencrypt_domains="--domains {{letsencrypt_domain}}"
+  when: not letsencrypt_request_www
+
+- set_fact: _letsencrypt_certbot_combined_args="{{_letsencrypt_certbot_args + letsencrypt_certbot_default_args + letsencrypt_certbot_args + [_letsencrypt_domains] }}"
 
 - name: Stopping Services
   service: name="{{item}}" state=stopped
