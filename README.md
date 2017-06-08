@@ -22,7 +22,13 @@ Functionality as follows:
 
 PR's are welcome to include more functionality.
 
-#### More detail
+### Installation
+
+You can install the role directly from Galaxy as follows:
+
+    ansible-galaxy install jaywink.letsencrypt
+
+### Details
 
 * The client will be installed in `/opt/certbot` as root
 * Each run will pull in the Certbot client code from a proven release version. You can set a specific Certbot version using the variable `letsencrypt_certbot_version`.
