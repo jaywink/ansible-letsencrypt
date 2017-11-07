@@ -1,4 +1,5 @@
 ---
+# prepare arguments
 - set_fact: _letsencrypt_certbot_args="{{ letsencrypt_certbot_args + ['--renew-by-default'] }}"
   when: letsencrypt_force_renew
 
@@ -13,21 +14,37 @@
 
 - set_fact: _letsencrypt_certbot_combined_args="{{_letsencrypt_certbot_args + letsencrypt_certbot_default_args + letsencrypt_certbot_args + [_letsencrypt_domains] }}"
 
+# stop service
 - name: Stopping Services
   service: name="{{item}}" state=stopped
   with_items: "{{ letsencrypt_pause_services }}"
   ignore_errors: yes
   register: _services_stopped
 
-- name: Obtain or renew cert for domain
+# do the actual work
+- name: Obtain or renew cert for domain (source client)
   shell: ./certbot-auto {{_letsencrypt_certbot_combined_args | join(' ')}} 2>&1
   args:
     chdir: /opt/certbot
     executable: /bin/bash
   ignore_errors: true
   register: _certbot_command
-  when: not letsencrypt_test
+  when:
+    - not letsencrypt_test
+    - not ansible_distribution_release == 'stretch'
 
+# do the actual work
+- name: Obtain or renew cert for domain (debian client)
+  shell: certbot {{_letsencrypt_certbot_combined_args | join(' ')}} 2>&1
+  args:
+    executable: /bin/bash
+  ignore_errors: true
+  register: _certbot_command
+  when:
+    - not letsencrypt_test
+    - ansible_distribution_release == 'stretch'
+
+# analyze output
 - set_fact: _signing_successful='{{ certbot_success_message in _certbot_command.stdout }}'
   when: not letsencrypt_test
 - set_fact: _signing_skipped='{{ (certbot_skip_renewal_message in _certbot_command.stdout) and not letsencrypt_force_renew }}'
