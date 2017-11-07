@@ -15,7 +15,7 @@ Ansible version required: 2.x
 This role will pull in the official [Certbot client](https://github.com/certbot/certbot), install it and issue or renew a certificate with your chosen domain.
 
 Functionality as follows:
-* Tested on Ubuntu 14.04 and Debian 8
+* Tested on Ubuntu 14.04 and Debian 8, Debian 9
 * One domain per role include only
 * Runs in `certonly` mode only
 
@@ -52,7 +52,7 @@ You can install the role directly from Galaxy as follows:
 
 Tested with the following:
 
-* Ubuntu 14.04 and Debian 8
+* Ubuntu 14.04 and Debian 8, Debian 9
 * Apache2 and Nginx
 * Ansible 2.x
 
