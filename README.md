@@ -52,7 +52,7 @@ You can install the role directly from Galaxy as follows:
 
 Tested with the following:
 
-* Ubuntu 14.04 and Debian 8
+* Ubuntu 14.04 and Debian 8, Debian 9
 * Apache2 and Nginx
 * Ansible 2.x
 
