@@ -19,7 +19,6 @@ Functionality as follows:
 * One domain per role include only
 * Runs in `certonly` mode only
 
-
 PR's are welcome to include more functionality.
 
 ### Installation
@@ -30,8 +29,19 @@ You can install the role directly from Galaxy as follows:
 
 ### Details
 
+#### Cerbot client location and version
+
+##### Ubuntu 14.04, Debian 8
+
 * The client will be installed in `/opt/certbot` as root
 * Each run will pull in the Certbot client code from a proven release version. You can set a specific Certbot version using the variable `letsencrypt_certbot_version`.
+
+##### Debian 9
+
+* The client will be installed via APT into the standard platform location according to the latest version in the repositories.
+
+#### Things to know
+
 * A list of services to be stopped before and (re-)started after obtaining a new certificate can be configured using the variable `letsencrypt_pause_services`.
 * `certonly` mode is used, which means no automatic web server installation
 * After cert issuing, you can find it in `/etc/letsencrypt/live/<domainname>`
@@ -68,7 +78,7 @@ Tested with the following:
 * `letsencrypt_certbot_args` - Additional command line args to be passed to Certbot-- will be combined with `letsencrypt_certbot_default_args`. See [the Certbot docs](https://certbot.eff.org/docs/using.html) for arguments you may pass.
 * `letsencrypt_certbot_default_args` - Please see `defaults/main.yml` what the default arguments are. Also, you could add To override all the arguments to Certbot, for example to use another plugin, set them using this variable.
 * `letsencrypt_certbot_verbose` - Make Certbot output to console (default `true`).
-* `letsencrypt_certbot_version` - Set specific Certbot version, for example a git tag or branch. Note that the lowest version of Certbot we support is 0.6.0.
+* `letsencrypt_certbot_version` - Set specific Certbot version, for example a git tag or branch. Note that the lowest version of Certbot we support is 0.6.0. Has no effect on Debian 9.
 * `letsencrypt_force_renew` - Whether to attempt renewal always, default to `true`.
 * `letsencrypt_pause_services` - List of services to stop/start while calling Certbot.
 * `letsencrypt_request_www` - Request `www.` automatically (default `true`).

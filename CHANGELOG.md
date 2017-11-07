@@ -1,3 +1,8 @@
+## [unreleased]
+
+### Added
+* Debian 9 "Stretch" is now supported. Instead of using the client from the source, on Debian 9 the Certbot client will be pulled via APT. Note! This means that the version pinning configuration variables in this role have no effect when deploying on Debian 9. Thanks to @bjoas for this addition.
+
 ## [0.6.1] - 2017-01-27
 
 ### Fixed
