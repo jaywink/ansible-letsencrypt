@@ -31,7 +31,7 @@
   register: _certbot_command_source_client
   when:
     - not letsencrypt_test
-    - not ansible_distribution_release == 'stretch'
+    - not ansible_distribution_release == 'stretch' and not ansible_distribution_release == 'bionic'
 
 # do the actual work
 - name: Obtain or renew cert for domain (debian client)
@@ -42,12 +42,12 @@
   register: _certbot_command_debian_client
   when:
     - not letsencrypt_test
-    - ansible_distribution_release == 'stretch'
+    - ansible_distribution_release == 'stretch' or ansible_distribution_release == 'bionic'
 
 # combine results
 # because of rather unpleasant ansible feature, see https://github.com/ansible/ansible/issues/4297
 - set_fact:
-    _certbot_command: "{{ _certbot_command_debian_client if ansible_distribution_release == 'stretch' else _certbot_command_source_client }}"
+    _certbot_command: "{{ _certbot_command_debian_client if ansible_distribution_release == 'stretch' or ansible_distribution_release == 'bionic' else _certbot_command_source_client }}"
 
 # analyze output
 - set_fact: _signing_successful='{{ certbot_success_message in _certbot_command.stdout }}'

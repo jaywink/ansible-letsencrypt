@@ -13,10 +13,10 @@
     - dialog
     - libaugeas0
     - ca-certificates
-  when: not ansible_distribution_release == 'stretch'
+  when: not ansible_distribution_release == 'stretch' and not ansible_distribution_release == 'bionic'
 - name: Python cryptography module
   pip: name=cryptography
-  when: not ansible_distribution_release == 'stretch'
+  when: not ansible_distribution_release == 'stretch' and not ansible_distribution_release == 'bionic'
 - name: Letsencrypt Python client
   git:
     dest: /opt/certbot
@@ -25,11 +25,11 @@
     repo: https://github.com/certbot/certbot
     force: yes
     version: '{{letsencrypt_certbot_version}}'
-  when: not ansible_distribution_release == 'stretch'
+  when: not ansible_distribution_release == 'stretch' and not ansible_distribution_release == 'bionic'
 
 # install client from package repo (available in debian stretch)
 - name: Install Certbot
   apt: name={{ item }} update_cache=yes state=latest
   with_items:
     - certbot
-  when: ansible_distribution_release == 'stretch'
+  when: ansible_distribution_release == 'stretch' or ansible_distribution_release == 'bionic'
